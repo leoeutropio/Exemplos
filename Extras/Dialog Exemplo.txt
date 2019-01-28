@@ -1,0 +1,36 @@
+ private void dialogFinalizar() {
+        final Dialog dialog = new Dialog(NovaInspecaoLogadoActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_finalizar_inspecao);
+
+        Objects.requireNonNull(dialog.getWindow()).setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        TextView btnFechar = dialog.findViewById(R.id.btnFecharDial);
+        TextView btnSalvar = dialog.findViewById(R.id.btnSalvarDial);
+        final EditText kmFinal = dialog.findViewById(R.id.kmFinalDial);
+
+        btnFechar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (kmFinal.getText().toString().equals("")){
+                    Toast.makeText(NovaInspecaoLogadoActivity.this, "Digite o KM final", Toast.LENGTH_SHORT).show();
+//                }else if(Integer.valueOf(kmFinal.getText().toString()) <= Integer.valueOf(inspecao.getKmInicial())){
+//                    Toast.makeText(NovaInspecaoLogadoActivity.this, "KM final inválido", Toast.LENGTH_SHORT).show();
+                }else {
+                    dialog.dismiss();
+                    inspecao.setKmFinal(kmFinal.getText().toString());
+                    Intent i = new Intent(NovaInspecaoLogadoActivity.this, ConferirInspecaoActivity.class);
+                    i.putExtra("inspecao", inspecao);
+                    startActivity(i);
+                }
+            }
+        });
+        dialog.show();
+    }
