@@ -1,0 +1,4 @@
+public final static String cepUrl = "https://viacep.com.br/ws/";
+
+ @GET("{cep}/json/ ")
+    Call<CepResponse> cep(@Path("cep") String cep);
